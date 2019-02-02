@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+
+  roles:
+    - role: /home/ramones/projects/ansible-role-pc-setup
+      become: yes

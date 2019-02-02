@@ -1,2 +1,5 @@
 ---
-# defaults file for ansible-role-pc-setup
+install_packages: ""
+install_pip_packages: ""
+timezone: ""
+profile_user: "root"

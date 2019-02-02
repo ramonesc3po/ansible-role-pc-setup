@@ -1,0 +1,10 @@
+---
+requirements_install_packages:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+  - python36
+  - python36-pip
+  - terminator
+requirements_install_pip_packages:
+  - powerline-shell
