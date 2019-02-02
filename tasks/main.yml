@@ -1,0 +1,13 @@
+---
+# tasks file for ansible-role-pc-setup
+- name: Install packages
+  apt:
+    package: {{ item }}
+  with_items:
+    - openvpn
+
+- name: Install packages 2
+  yum:
+    package: {{ item }}
+  with_items:
+    - openvpn
