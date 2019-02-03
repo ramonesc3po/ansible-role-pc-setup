@@ -5,17 +5,30 @@ Other reasons to take control of what I installed in my computer and implementin
 
 Requirements
 ------------
-- Ansible Latest installed.
+- Ansible Latest version installed.
+- Profile user
 
 Role Variables
 --------------
-
-Dependencies
-------------
+- install_packages: ""
+- install_pip_packages: ""
+- timezone: ""
+- profile_user: ""
 
 Example Playbook
 ----------------
 ```yaml
+- hosts: localhost
+  vars:
+    profile_user: "someone"
+    install_packages:
+      - htop
+      - curl
+      - awscli
+
+  roles:
+    - role: ramonesc3po.ansible_role_pc_setup
+      become: yes
 ```
 
 Author Information
