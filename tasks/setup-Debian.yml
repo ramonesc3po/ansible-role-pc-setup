@@ -6,10 +6,10 @@
 
 - name: Sudoers
   lineinfile:
-     path: /etc/sudoers
-     line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
-     insertafter: EOF
-     validate: '/usr/sbin/visudo -cf %s'
+    path: /etc/sudoers
+    line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
+    insertafter: EOF
+    validate: '/usr/sbin/visudo -cf %s'
   become: yes
 
 - name: Google Chrome apt-key
