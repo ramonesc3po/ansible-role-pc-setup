@@ -7,8 +7,8 @@
 - name: Enable sudo without password
   lineinfile:
     path: /etc/sudoers
-    regexp: '^%wheel'
-    line: '%wheel        ALL=(ALL)       NOPASSWD: ALL'
+    regexp: '^%sudo'
+    line: '%sudo        ALL=(ALL)       NOPASSWD: ALL'
     state: present
 
 - name: Google Chrome apt-key
