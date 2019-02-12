@@ -1,0 +1,8 @@
+---
+requirements_install_packages:
+  - lvm2
+  - python36
+  - python36-pip
+  - terminator
+requirements_install_pip_packages:
+  - powerline-shell
