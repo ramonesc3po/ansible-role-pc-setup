@@ -39,16 +39,6 @@
       - ppa:daniruiz/flat-remix
   ignore_errors: yes
 
-- name: Trusty PPAs
-  apt_repository:
-    repo: '{{ item }}'
-    codename: trusty
-    validate_certs: no
-  with_items:
-    - ppa:gnome-terminator/nightly-gtk3
-    - ppa:noobslab/themes
-    - ppa:videolan/stable-daily
-
 - name: Upgrade packages
   apt:
     upgrade: yes
