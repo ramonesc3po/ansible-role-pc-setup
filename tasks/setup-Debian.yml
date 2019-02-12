@@ -27,6 +27,9 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
+- name: Docker ppa temporario
+  command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
 - name: Add PPAs
   apt_repository:
     repo: '{{ item }}'
