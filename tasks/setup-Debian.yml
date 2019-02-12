@@ -7,7 +7,7 @@
 - name: Sudoers
   lineinfile:
      path: /etc/sudoers
-     line: "{{ usuario }} ALL=(ALL) NOPASSWD:ALL"
+     line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
      insertafter: EOF
      validate: '/usr/sbin/visudo -cf %s'
 
