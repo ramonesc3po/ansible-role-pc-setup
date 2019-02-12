@@ -18,7 +18,7 @@
 
 - name: Google Chrome repository
   lineinfile:
-    path: /etc/apt/sources.list.d/google.list
+    dest: /etc/apt/sources.list.d/google.list
     line: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     create: yes
 
