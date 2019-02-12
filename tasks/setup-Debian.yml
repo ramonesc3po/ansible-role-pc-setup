@@ -30,13 +30,13 @@
 - name: Add PPAs
   apt_repository:
     repo: '{{ item }}'
-  validate_certs: no
-  with_items:
-    - ppa:noobslab/icons
-    - ppa:gencfsm
-    - ppa:otto-kesselgulasch/gimp-edge
-    - ppa:graphics-drivers/ppa
-    - ppa:daniruiz/flat-remix
+    validate_certs: no
+    with_items:
+      - ppa:noobslab/icons
+      - ppa:gencfsm
+      - ppa:otto-kesselgulasch/gimp-edge
+      - ppa:graphics-drivers/ppa
+      - ppa:daniruiz/flat-remix
   ignore_errors: yes
 
 - name: Trusty PPAs
