@@ -4,12 +4,12 @@
     name: "{{ timezone }}"
   when: timezone != ""
 
-- name: Enable sudo without password
+- name: Sudoers
   lineinfile:
-    path: /etc/sudoers
-    regexp: '^%sudo'
-    line: '%sudo        ALL=(ALL)       NOPASSWD: ALL'
-    state: present
+     path: /etc/sudoers
+     line: "{{ usuario }} ALL=(ALL) NOPASSWD:ALL"
+     insertafter: EOF
+     validate: '/usr/sbin/visudo -cf %s'
 
 - name: Google Chrome apt-key
   apt_key:
