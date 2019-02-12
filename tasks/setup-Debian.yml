@@ -43,7 +43,7 @@
   apt_repository:
     repo: '{{ item }}'
     codename: trusty
-  validate_certs: no
+    validate_certs: no
   with_items:
     - ppa:gnome-terminator/nightly-gtk3
     - ppa:noobslab/themes
