@@ -45,7 +45,7 @@
     dpkg_options: 'force-confold,force-confdef'
     autoremove: yes
     update_cache: yes
-    ignore_errors: yes
+  ignore_errors: yes
 
 - name: Install requirements packages
   yum:
