@@ -48,7 +48,7 @@
   ignore_errors: yes
 
 - name: Install requirements packages
-  yum:
+  apt:
     name: "{{ requirements_install_packages }}"
 
 - name: Install pip requirements packages
@@ -65,7 +65,7 @@
   when: install_pip_packages != ""
 
 - name: Install custom packages
-  yum:
+  apt:
     name: "{{ install_packages }}"
 
 - name: Terminator Nord theme
