@@ -55,13 +55,13 @@
   pip:
     name: "{{ requirements_install_pip_packages }}"
     state: latest
-    executable: pip3.6
+    executable: pip3
 
 - name: Install custom pip packages
   pip:
     name: "{{ install_pip_packages }}"
     state: latest
-    executable: pip3.6
+    executable: pip3
   when: install_pip_packages != ""
 
 - name: Install custom packages
