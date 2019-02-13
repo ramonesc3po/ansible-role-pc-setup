@@ -11,6 +11,12 @@
     insertafter: EOF
     validate: '/usr/sbin/visudo -cf %s'
 
+- name: apt-get update
+  command: sudo apt-get update
+
+- name: install aptitude
+  command: sudo apt-get install aptitude apt-transport-https -y
+
 - name: Google Chrome apt-key
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
@@ -30,7 +36,7 @@
 - name: Docker ppa
   lineinfile:
     dest: /etc/apt/sources.list.d/docker-ce.list
-    line: "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+    line: "deb [arch=amd64] https://download.docker.com/linux/debian strech stable"
     create: yes
 
 
@@ -45,12 +51,6 @@
     - ppa:graphics-drivers/ppa
     - ppa:daniruiz/flat-remix
   ignore_errors: yes
-
-- name: apt-get update
-  command: sudo apt-get update
-
-- name: install aptitude
-  command: sudo apt-get install aptitude apt-transport-https -y
 
 - name: Upgrade packages
   apt:
