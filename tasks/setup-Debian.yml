@@ -15,7 +15,7 @@
   command: sudo apt-get update
 
 - name: install aptitude
-  command: sudo apt-get install aptitude apt-transport-https -y
+  command: sudo apt-get install aptitude apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
 
 - name: Google Chrome apt-key
   apt_key:
