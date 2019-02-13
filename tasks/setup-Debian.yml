@@ -30,7 +30,7 @@
 
 - name: Docker apt-key
   apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
+    url: https://download.docker.com/linux/debian/gpg
     state: present
 
 - name: Docker ppa
