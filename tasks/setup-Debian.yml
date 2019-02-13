@@ -38,7 +38,8 @@
     dest: /etc/apt/sources.list.d/docker-ce.list
     line: "deb [arch=amd64] https://download.docker.com/linux/debian strech stable"
     create: yes
-
+- command: sudo apt-get update
+  ignore_errors: yes
 
 - name: Add PPAs
   apt_repository:
