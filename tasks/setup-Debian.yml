@@ -28,25 +28,25 @@
     state: present
 
 - name: Docker ppa temporario
-  command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  command: sudo echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" >> /etc/apt/source.list
 
 - name: Add PPAs
   apt_repository:
     repo: '{{ item }}'
     validate_certs: no
-    with_items:
-      - ppa:noobslab/icons
-      - ppa:gencfsm
-      - ppa:otto-kesselgulasch/gimp-edge
-      - ppa:graphics-drivers/ppa
-      - ppa:daniruiz/flat-remix
+  with_items:
+    - ppa:noobslab/icons
+    - ppa:gencfsm
+    - ppa:otto-kesselgulasch/gimp-edge
+    - ppa:graphics-drivers/ppa
+    - ppa:daniruiz/flat-remix
   ignore_errors: yes
 
 - name: apt-get update
   command: apt-get update
 
 - name: install aptitude
-  command: apt-get install aptitude -y
+  command: apt-get install aptitude apt-transport-https -y
 
 - name: Upgrade packages
   apt:
