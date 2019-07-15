@@ -41,18 +41,6 @@
 - command: sudo apt-get update
   ignore_errors: yes
 
-- name: Add PPAs
-  apt_repository:
-    repo: '{{ item }}'
-    validate_certs: no
-  with_items:
-    - ppa:noobslab/icons
-    - ppa:gencfsm
-    - ppa:otto-kesselgulasch/gimp-edge
-    - ppa:graphics-drivers/ppa
-    - ppa:daniruiz/flat-remix
-  ignore_errors: yes
-
 - name: Upgrade packages
   apt:
     upgrade: yes
@@ -76,11 +64,13 @@
     name: "{{ install_pip_packages }}"
     state: latest
     executable: pip3
+  ignore_errors: yes
   when: install_pip_packages != ""
 
 - name: Install custom packages
   apt:
     name: "{{ install_packages }}"
+  ignore_errors: yes
 
 - name: Terminator Nord theme
   git:
