@@ -48,3 +48,4 @@
     autoremove: yes
     autoclean: yes
   ignore_errors: yes
+  when: install_packages != ""
