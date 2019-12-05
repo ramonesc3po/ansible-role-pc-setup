@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/travis-ci/travis-web.svg?branch=ce-find-order-dependent-tests)]
+(https://travis-ci.com/ramonesc3po/ansible-role-pc-setup/builds/139612111)
+
 Role pc-setup
 =========
 I created this role so when I change a new computer I can install my  programs every time  I need it.
