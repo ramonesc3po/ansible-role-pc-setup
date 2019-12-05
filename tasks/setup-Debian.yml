@@ -1,21 +1,14 @@
 ---
-- name: set timezone {{ timezone }}
-  timezone:
-    name: "{{ timezone }}"
-  when: timezone != ""
-
-- name: Sudoers
-  lineinfile:
-    dest: /etc/sudoers
-    line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
-    insertafter: EOF
-    validate: '/usr/sbin/visudo -cf %s'
-
-- name: apt-get update
-  command: sudo apt-get update
-
-- name: install aptitude
-  command: sudo apt-get install aptitude apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
+- name: install requires apt  
+  apt:
+    name:
+    - aptitude
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+    update_cache: yes
 
 - name: Google Chrome apt-key
   apt_key:
@@ -28,30 +21,11 @@
     line: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     create: yes
 
-- name: Docker-ce apt-key
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
-
-- name: Docker ppa
-  lineinfile:
-    dest: /etc/apt/sources.list.d/docker-ce.list
-    line: "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
-    create: yes
-- command: sudo apt-get update
-  ignore_errors: yes
-
-- name: Upgrade packages
-  apt:
-    upgrade: yes
-    dpkg_options: 'force-confold,force-confdef'
-    autoremove: yes
-    update_cache: yes
-  ignore_errors: yes
-
 - name: Install requirements packages
   apt:
     name: "{{ requirements_install_packages }}"
+    update_cache: yes
+    state: latest
 
 - name: Install pip requirements packages
   pip:
@@ -67,51 +41,10 @@
   ignore_errors: yes
   when: install_pip_packages != ""
 
-- name: Install custom packages
+- name: Install apt custom packages
   apt:
     name: "{{ install_packages }}"
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
   ignore_errors: yes
-
-- name: Terminator Nord theme
-  git:
-    repo: https://github.com/arcticicestudio/nord-terminator.git
-    dest: /tmp/nord
-- file:
-    path: '/home/{{ profile_user }}/.config/terminator'
-    state: directory
-    owner: '{{ profile_user }}'
-    group: '{{ profile_user }}'
-    mode: 0755
-- copy:
-    src: '/tmp/nord/src/config'
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    owner: "{{ profile_user }}"
-    group: "{{ profile_user }}"
-    mode: 0644
-- replace:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: 'nord'
-    replace: 'default'
-- lineinfile:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: '^background_color'
-    insertafter: '^background_color'
-    line: "    {{ item.property }} = {{ item.value }}"
-  with_items:
-    - { property: 'background_darkness', value: '0.9' }
-    - { property: 'background_type', value: 'transparent' }
-    - { property: 'scrollback_lines', value: '50000' }
-    - { property: 'font', value: 'Liberation Mono 8' }
-    - { property: 'use_system_font', value: 'False' }
-
-- name: Configura powerline-shell
-  blockinfile:
-    dest: /etc/bash.bashrc
-    insertafter: EOF
-    content: |
-      function _update_ps1() {
-        PS1=$(powerline-shell $?)
-      }
-      if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-         PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-      fi
