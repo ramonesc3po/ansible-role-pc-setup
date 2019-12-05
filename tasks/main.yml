@@ -21,3 +21,14 @@
 
 - name: Configure shell
   include: shell.yml
+
+- name: Setup docker and docker compose
+  include: docker.yml
+
+- name: Setup kvm
+  include: kvm.yml
+  when: setup_kvm == true
+
+- debug:
+    msg:
+    - "There are no errors? Restart your pc to effect user changes."

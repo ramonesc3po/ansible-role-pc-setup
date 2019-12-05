@@ -1,0 +1,25 @@
+---
+- name: Setup kvm
+  apt:
+    name:    
+    - virt-manager
+    - virt-goodies
+    - qemu-kvm 
+    - libvirt-clients 
+    - libvirt-daemon-system 
+    - bridge-utils 
+    - libguestfs-tools 
+    - genisoimage 
+    - virtinst 
+    - libosinfo-bin
+    update_cache: yes
+  register: _setup_kvm
+  when: 
+    - ansible_facts['os_family'] == "Debian"
+
+- name: Adding user profile to libvirt group
+  user:
+    name: "{{ profile_user }}"
+    groups: libvirt,libvirt-qemu
+    append: yes
+  when: _setup_kvm is succeeded
