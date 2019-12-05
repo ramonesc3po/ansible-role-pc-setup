@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/travis-ci/travis-web.svg?branch=ce-find-order-dependent-tests)]
-(https://travis-ci.com/ramonesc3po/ansible-role-pc-setup/builds/139612111)
+[![Build Status](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup.svg?branch=develop)](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup)
 
 Role pc-setup
 =========
