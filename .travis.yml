@@ -1,7 +1,6 @@
 
 ---
-language: python
-services: docker
+dist: bionic
 
 install:
   - apt-get update
