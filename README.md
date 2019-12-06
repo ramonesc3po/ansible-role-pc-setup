@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup.svg?branch=develop)](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup)
+[![Build Status](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup.svg?branch=master)](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup)
 
 Role pc-setup
 =========
