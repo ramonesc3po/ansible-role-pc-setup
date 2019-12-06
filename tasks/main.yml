@@ -1,33 +1,37 @@
 ---
-- name: Add variables OS specific
+- name: add variables OS specific
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Configure timezone
+- name: configure timezone
   include: timezone.yml
 
-- name: Set profile user sudoers
+- name: set profile user sudoers
   include: sudoers.yml
 
-- name: Apply if FamilyOS is Debian
+- name: apply if FamilyOS is Debian
   include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: Apply if Centos
+- name: apply if Centos
   include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
 
-- name: Configure terminator
+- name: configure terminator
   include: terminator.yml
 
-- name: Configure shell
+- name: configure shell
   include: shell.yml
 
-- name: Setup docker and docker compose
+- name: setup docker and docker compose
   include: docker.yml
 
-- name: Setup kvm
+- name: setup kvm
   include: kvm.yml
   when: setup_kvm == true
+
+- name: setup IDE VS code
+  include: ide_code.yml
+  when: ansible_os_family == 'Debian'
 
 - debug:
     msg:

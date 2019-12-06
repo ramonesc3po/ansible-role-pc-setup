@@ -5,5 +5,6 @@ requirements_install_packages:
   - python3-pip
   - terminator
   - curl
+  - git
 requirements_install_pip_packages:
   - powerline-shell

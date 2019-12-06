@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup.svg?branch=master)](https://travis-ci.com/ramonesc3po/ansible-role-pc-setup)
+
 Role pc-setup
 =========
 I created this role so when I change a new computer I can install my  programs every time  I need it.

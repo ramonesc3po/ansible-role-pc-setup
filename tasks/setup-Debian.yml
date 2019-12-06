@@ -10,30 +10,30 @@
     - software-properties-common
     update_cache: yes
 
-- name: Google Chrome apt-key
+- name: google Chrome apt-key
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
     state: present
 
-- name: Google Chrome repository
+- name: google Chrome repository
   lineinfile:
     dest: /etc/apt/sources.list.d/google.list
     line: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     create: yes
 
-- name: Install requirements packages
+- name: install requirements packages
   apt:
     name: "{{ requirements_install_packages }}"
     update_cache: yes
     state: latest
 
-- name: Install pip requirements packages
+- name: install pip requirements packages
   pip:
     name: "{{ requirements_install_pip_packages }}"
     state: latest
     executable: pip3
 
-- name: Install custom pip packages
+- name: install custom pip packages
   pip:
     name: "{{ install_pip_packages }}"
     state: latest
@@ -41,10 +41,11 @@
   ignore_errors: yes
   when: install_pip_packages != ""
 
-- name: Install apt custom packages
+- name: install apt custom packages
   apt:
     name: "{{ install_packages }}"
     update_cache: yes
     autoremove: yes
     autoclean: yes
   ignore_errors: yes
+  when: install_packages != ""

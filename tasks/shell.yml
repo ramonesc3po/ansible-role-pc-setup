@@ -1,5 +1,5 @@
 ---
-- name: Setup powerline-shell
+- name: setup powerline-shell
   blockinfile:
     dest: /etc/bash.bashrc
     insertafter: EOF

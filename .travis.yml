@@ -1,0 +1,14 @@
+
+---
+language: "python"
+services:
+  - docker
+
+branches:
+  only:
+  - master
+  - /^release-.*$/
+  - /^feature-.*$/
+
+script:
+  - docker build -f Dockerfile -t ansible/pc .

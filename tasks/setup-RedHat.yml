@@ -4,14 +4,14 @@
     name: "{{ timezone }}"
   when: timezone != ""
 
-- name: Enable sudo without password
+- name: enable sudo without password
   lineinfile:
     path: /etc/sudoers
     regexp: '^%wheel'
     line: '%wheel        ALL=(ALL)       NOPASSWD: ALL'
     state: present
 
-- name: Add repository google-chrome
+- name: add repository google-chrome
   yum_repository:
     name: google-chrome
     description: Google Chrome repo
@@ -20,10 +20,10 @@
     gpgcheck: yes
     gpgkey: https://dl.google.com/linux/linux_signing_key.pub
 
-- name: Add repository docker-ce repository
+- name: add repository docker-ce repository
   command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-- name: Install epel release
+- name: install epel release
   yum:
     name: epel-release
 
@@ -31,63 +31,20 @@
   yum:
     name: "{{ requirements_install_packages }}"
 
-- name: Install pip requirements packages
+- name: install pip requirements packages
   pip:
     name: "{{ requirements_install_pip_packages }}"
     state: latest
     executable: pip3.6
 
-- name: Install custom pip packages
+- name: install custom pip packages
   pip:
     name: "{{ install_pip_packages }}"
     state: latest
     executable: pip3.6
   when: install_pip_packages != ""
 
-- name: Install custom packages
+- name: install custom packages
   yum:
     name: "{{ install_packages }}"
-
-- name: Terminator Nord theme
-  git:
-    repo: https://github.com/arcticicestudio/nord-terminator.git
-    dest: /tmp/nord
-- file:
-    path: '/home/{{ profile_user }}/.config/terminator'
-    state: directory
-    owner: '{{ profile_user }}'
-    group: '{{ profile_user }}'
-    mode: 0755
-- copy:
-    src: '/tmp/nord/src/config'
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    owner: "{{ profile_user }}"
-    group: "{{ profile_user }}"
-    mode: 0644
-- replace:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: 'nord'
-    replace: 'default'
-- lineinfile:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: '^background_color'
-    insertafter: '^background_color'
-    line: "    {{ item.property }} = {{ item.value }}"
-  with_items:
-    - { property: 'background_darkness', value: '0.9' }
-    - { property: 'background_type', value: 'transparent' }
-    - { property: 'scrollback_lines', value: '50000' }
-    - { property: 'font', value: 'Liberation Mono 8' }
-    - { property: 'use_system_font', value: 'False' }
-
-- name: Configura powerline-shell
-  blockinfile:
-    path: /etc/bashrc
-    insertafter: EOF
-    content: |
-      function _update_ps1() {
-        PS1=$(powerline-shell $?)
-      }
-      if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-         PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-      fi
+  when: install_packages != ""
