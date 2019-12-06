@@ -1,14 +1,14 @@
 ---
-- name: Install docker
+- name: install docker
   shell: |
     curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
-- name: Adding user profile to docker group
+- name: adding user profile to docker group
   user:
     name: "{{ profile_user }}"
     groups: docker
     append: yes
 
-- name: Install docker compose
+- name: install docker compose
   shell: |
     if ! which docker-compose >> /dev/null; then curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -f -s /usr/local/bin/docker-compose /usr/bin/docker-compose; fi

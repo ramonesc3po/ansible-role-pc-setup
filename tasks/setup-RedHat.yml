@@ -4,14 +4,14 @@
     name: "{{ timezone }}"
   when: timezone != ""
 
-- name: Enable sudo without password
+- name: enable sudo without password
   lineinfile:
     path: /etc/sudoers
     regexp: '^%wheel'
     line: '%wheel        ALL=(ALL)       NOPASSWD: ALL'
     state: present
 
-- name: Add repository google-chrome
+- name: add repository google-chrome
   yum_repository:
     name: google-chrome
     description: Google Chrome repo
@@ -20,10 +20,10 @@
     gpgcheck: yes
     gpgkey: https://dl.google.com/linux/linux_signing_key.pub
 
-- name: Add repository docker-ce repository
+- name: add repository docker-ce repository
   command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-- name: Install epel release
+- name: install epel release
   yum:
     name: epel-release
 
@@ -31,20 +31,20 @@
   yum:
     name: "{{ requirements_install_packages }}"
 
-- name: Install pip requirements packages
+- name: install pip requirements packages
   pip:
     name: "{{ requirements_install_pip_packages }}"
     state: latest
     executable: pip3.6
 
-- name: Install custom pip packages
+- name: install custom pip packages
   pip:
     name: "{{ install_pip_packages }}"
     state: latest
     executable: pip3.6
   when: install_pip_packages != ""
 
-- name: Install custom packages
+- name: install custom packages
   yum:
     name: "{{ install_packages }}"
   when: install_packages != ""

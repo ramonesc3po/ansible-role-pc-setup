@@ -1,5 +1,5 @@
 ---
-- name: Sudoers
+- name: sudoers
   lineinfile:
     dest: /etc/sudoers
     line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"

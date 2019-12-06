@@ -1,5 +1,5 @@
 ---
-- name: Terminator theme
+- name: terminator theme
   git:
     repo: https://github.com/arcticicestudio/nord-terminator.git
     dest: /tmp/nord

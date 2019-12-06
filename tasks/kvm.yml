@@ -1,5 +1,5 @@
 ---
-- name: Setup kvm
+- name: setup kvm
   apt:
     name:    
     - virt-manager
