@@ -2,6 +2,9 @@
 - hosts: localhost
   connection: local
 
+  vars:
+    setup_hashicorp: true
+
   roles:
     - role: ./
       become: yes

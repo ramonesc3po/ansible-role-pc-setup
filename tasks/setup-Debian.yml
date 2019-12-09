@@ -2,6 +2,7 @@
 - name: install requires apt  
   apt:
     name:
+    - unzip
     - aptitude
     - apt-transport-https
     - ca-certificates

@@ -4,3 +4,7 @@ install_pip_packages: ""
 timezone: ""
 profile_user: "root"
 setup_kvm: false
+
+setup_hashicorp: false
+hashicorp_terraform_version: 0.12.17
+hashicorp_terraform_os: "linux"
