@@ -4,3 +4,9 @@
     src: https://releases.hashicorp.com/terraform/{{ hashicorp_terraform_version }}/terraform_{{ hashicorp_terraform_version }}_{{ hashicorp_terraform_os }}_amd64.zip
     dest: /usr/local/bin
     remote_src: yes
+
+- name: install version packer bin
+  unarchive:
+    src: https://releases.hashicorp.com/packer/{{ hashicorp_packer_version }}/packer_{{ hashicorp_packer_version }}_{{ hashicorp_packer_os }}_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes

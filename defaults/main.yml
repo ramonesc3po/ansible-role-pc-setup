@@ -6,5 +6,9 @@ profile_user: "root"
 setup_kvm: false
 
 setup_hashicorp: false
-hashicorp_terraform_version: 0.12.17
+# terraform tool
+hashicorp_terraform_version: 0.12.18
 hashicorp_terraform_os: "linux"
+# packer tool
+hashicorp_packer_version: 1.4.5
+hashicorp_packer_os: "linux"
