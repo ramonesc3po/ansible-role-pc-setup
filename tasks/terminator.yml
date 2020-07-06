@@ -32,5 +32,5 @@
     - { property: 'background_darkness', value: '0.9' }
     - { property: 'background_type', value: 'transparent' }
     - { property: 'scrollback_lines', value: '50000' }
-    - { property: 'font', value: 'Liberation Mono 8' }
+    - { property: 'font', value: 'Liberation Mono 11' }
     - { property: 'use_system_font', value: 'False' }
