@@ -21,3 +21,7 @@ nodejs_version: "10.x"
 # npm 
 setup_expo_cli: false
 npm_version_expo_cli: '3.15.5'
+
+# golang version
+setup_golang: false
+golang_version: '1.15.6'
