@@ -37,6 +37,10 @@
   include: nodejs.yml
   when: ansible_os_family == 'Debian' and setup_nodejs == true
 
+- name: setup golang
+  include: golang.yml
+  when: setup_golang == true
+
 - name: setup hashicorp bin
   include: hashicorp.yml
   when: setup_hashicorp == true
