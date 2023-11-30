@@ -1,22 +1,36 @@
 ---
 install_packages: ""
-install_pip_packages: ""
+install_pip_packages: []
 timezone: ""
 profile_user: "root"
 setup_kvm: false
 
+requirements_install_packages:
+  - lvm2
+  - python3
+  - python3-pip
+  - terminator
+  - curl
+  - git
+requirements_install_pip_packages:
+  - pycowsay
+  - powerline-shell
+
 # hashicorp
 setup_hashicorp: false
 # terraform tool
-hashicorp_terraform_version: 0.12.18
+hashicorp_terraform_version: 1.5.7
 hashicorp_terraform_os: "linux"
 # packer tool
-hashicorp_packer_version: 1.4.5
+hashicorp_packer_version: 1.9.4
 hashicorp_packer_os: "linux"
+# vagrant tool
+hashicorp_vagrant_version: 2.4.0
+hashicorp_vagrant_os: "linux"
 
 # nodejs
 setup_nodejs: true
-nodejs_version: "10.x"
+nodejs_version: "21.x"
 
 # npm 
 setup_expo_cli: false
@@ -24,4 +38,12 @@ npm_version_expo_cli: '3.15.5'
 
 # golang version
 setup_golang: false
-golang_version: '1.15.6'
+golang_version: '1.21.1'
+
+# docker-compose
+docker_compose_version: '2.23.3'
+
+# shell
+# terminator
+setup_terminator: false
+setup_kitty: true

@@ -1,0 +1,24 @@
+---
+- name: installing google chrome for Debian distro
+  block:
+    - ansible.builtin.apt:
+        name: gpg
+        update_cache: yes
+    - name: add apt key
+      ansible.builtin.apt_key:
+        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+        state: present
+    - name: google Chrome repository
+      ansible.builtin.lineinfile:
+        dest: /etc/apt/sources.list.d/google-chrome.list
+        line: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+        create: yes
+    - name: install google-chrome browser 
+      ansible.builtin.apt:
+        name:
+          - google-chrome-stable
+        state: present
+        update_cache: yes
+  when: ansible_os_family == 'Debian'
+  tags:
+    - install-chrome

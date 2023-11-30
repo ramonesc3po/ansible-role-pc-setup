@@ -1,5 +1,5 @@
 ---
 - name: set timezone {{ timezone }}
-  timezone:
+  ansible.builtin.timezone:
     name: "{{ timezone }}"
   when: timezone != ""

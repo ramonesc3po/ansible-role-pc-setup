@@ -1,8 +1,7 @@
 FROM debian
 
 RUN apt-get update \
-    && apt-get install python3 python3-pip sudo -y \
-    && pip3 install ansible
+    && apt-get install python3 sudo ansible -y
 
 ADD . ansible
 

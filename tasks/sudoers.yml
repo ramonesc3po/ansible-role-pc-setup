@@ -1,6 +1,6 @@
 ---
 - name: sudoers
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
     insertafter: EOF

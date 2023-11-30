@@ -1,0 +1,30 @@
+---
+- name: installing kitty
+  block:
+    - ansible.builtin.apt:
+        name:
+          - curl
+          - xz-utils
+        update_cache: yes
+    - ansible.builtin.file:
+        path: "{{ item }}"
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+        mode: 0755
+        recurse: yes
+        state: directory
+      loop: ["$HOME/.local/bin","$HOME/.local/share/applications"]
+    - ansible.builtin.shell: |
+        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+    - ansible.builtin.shell: |
+        ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
+    - ansible.builtin.shell: |
+        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+    - ansible.builtin.shell: |
+        cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+    - ansible.builtin.shell: |
+        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+    - ansible.builtin.shell: |
+        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+  tags:
+    - kitty

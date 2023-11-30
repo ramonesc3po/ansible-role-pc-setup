@@ -1,0 +1,28 @@
+---
+- name: install apt packages
+  block:
+    - name: install requires apt  
+      ansible.builtin.apt:
+        name:
+        - unzip
+        - aptitude
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg2
+        - software-properties-common
+        update_cache: yes
+    - name: install requirements packages
+      ansible.builtin.apt:
+        name: "{{ requirements_install_packages }}"
+        update_cache: yes
+        state: latest
+    - name: install apt custom packages
+      ansible.builtin.apt:
+        name: "{{ install_packages }}"
+        update_cache: yes
+        autoremove: yes
+        autoclean: yes
+      when: install_packages != ""
+  ignore_errors: true
+  tags: install-apt-pkg

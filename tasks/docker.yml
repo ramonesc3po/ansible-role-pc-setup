@@ -1,14 +1,19 @@
 ---
-- name: install docker
-  shell: |
-    curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+- name: installing docker by script
+  block:
+    - name: downloading and executing get-docker.sh
+      ansible.builtin.shell: |
+        curl -fsSL https://get.docker.com -o /tmp/get-docker.sh && sh /tmp/get-docker.sh
+    - name: adding user profile to docker group
+      ansible.builtin.user:
+        name: "{{ profile_user }}"
+        groups: docker
+        append: yes
+  tags:
+    - docker
 
-- name: adding user profile to docker group
-  user:
-    name: "{{ profile_user }}"
-    groups: docker
-    append: yes
-
-- name: install docker compose
+- name: installing docker compose
   shell: |
-    if ! which docker-compose >> /dev/null; then curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -f -s /usr/local/bin/docker-compose /usr/bin/docker-compose; fi
+    if ! which docker-compose >> /dev/null; then curl -L "https://github.com/docker/compose/releases/download/v{{docker_compose_version}}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -f -s /usr/local/bin/docker-compose /usr/bin/docker-compose; fi
+  tags:
+    - docker-compose

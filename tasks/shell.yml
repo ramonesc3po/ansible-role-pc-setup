@@ -1,6 +1,6 @@
 ---
 - name: setup powerline-shell
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: /etc/bash.bashrc
     insertafter: EOF
     content: |

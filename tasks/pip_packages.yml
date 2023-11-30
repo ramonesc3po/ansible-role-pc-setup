@@ -1,0 +1,20 @@
+---
+- name: install pip packages
+  block:
+    - name: install pipx
+      ansible.builtin.apt:
+        name: pipx
+        state: present
+    - name: install require pip packages
+      community.general.pipx:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ requirements_install_pip_packages }}"
+    - name: pip custom packages
+      community.general.pipx:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ install_pip_packages }}"
+      when: install_pip_packages != []
+  tags:
+    - install-pip-pkg

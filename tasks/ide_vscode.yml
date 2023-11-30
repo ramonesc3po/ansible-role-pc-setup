@@ -1,0 +1,19 @@
+---
+- name: installing vs code ide
+  block:
+  - ansible.builtin.apt_key:
+      url: 'https://packages.microsoft.com/keys/microsoft.asc'
+      state: present
+      keyring: /etc/apt/keyrings/packages.microsoft.gpg
+  - name: add vs code repo
+    ansible.builtin.apt_repository:
+      repo: deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main
+      filename: vscode
+      state: present
+  - ansible.builtin.apt:
+      name: code
+      state: present
+      update_cache: yes
+  when: ansible_os_family == 'Debian'
+  tags:
+    - ide-vscode

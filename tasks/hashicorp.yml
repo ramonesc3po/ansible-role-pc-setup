@@ -1,12 +1,35 @@
 ---
-- name: install version terraform bin
-  unarchive:
-    src: https://releases.hashicorp.com/terraform/{{ hashicorp_terraform_version }}/terraform_{{ hashicorp_terraform_version }}_{{ hashicorp_terraform_os }}_amd64.zip
-    dest: /usr/local/bin
-    remote_src: yes
+- name: installing hashicorp tools
+  block:
+    - ansible.builtin.stat:
+        path: "/usr/local/bin/terraform"
+      register: terraform_bin
 
-- name: install version packer bin
-  unarchive:
-    src: https://releases.hashicorp.com/packer/{{ hashicorp_packer_version }}/packer_{{ hashicorp_packer_version }}_{{ hashicorp_packer_os }}_amd64.zip
-    dest: /usr/local/bin
-    remote_src: yes
+    - name: install version terraform bin
+      ansible.builtin.unarchive:
+        src: https://releases.hashicorp.com/terraform/{{ hashicorp_terraform_version }}/terraform_{{ hashicorp_terraform_version }}_{{ hashicorp_terraform_os }}_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
+      when: terraform_bin.stat.exists != true
+
+    - ansible.builtin.stat:
+        path: "/usr/local/bin/packer"
+      register: packer_bin
+    - name: install version packer bin
+      ansible.builtin.unarchive:
+        src: https://releases.hashicorp.com/packer/{{ hashicorp_packer_version }}/packer_{{ hashicorp_packer_version }}_{{ hashicorp_packer_os }}_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
+      when: packer_bin.stat.exists != true
+
+    - ansible.builtin.stat:
+        path: "/usr/local/bin/vagrant"
+      register: vagrant_bin
+    - name: install version vagrant bin
+      ansible.builtin.unarchive:
+        src: https://releases.hashicorp.com/vagrant/{{ hashicorp_vagrant_version }}/vagrant_{{ hashicorp_vagrant_version }}_{{ hashicorp_vagrant_os }}_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
+      when: vagrant_bin.stat.exists != true
+  tags:
+    - hashicorp
