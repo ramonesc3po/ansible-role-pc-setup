@@ -1,0 +1,77 @@
+---
+- name: apt install desktop
+  block:
+    - name: install gnome
+      ansible.builtin.apt:
+        name:
+        - gnome
+        update_cache: yes
+    - name: install i3
+      ansible.builtin.apt:
+        name:
+        - i3
+        - feh
+        update_cache: yes
+    - name: remove i3 lock
+      ansible.builtin.apt:
+        name: i3lock
+        state: absent
+    - name: copy i3 lock-color .deb
+      ansible.builtin.copy:
+        src: pkg/debian/i3lock-color_2.13.c.5-2_amd64.deb
+        dest: "/tmp/i3lock-color.deb"
+    - name: install deb i3lock-color
+      ansible.builtin.apt:
+        deb: /tmp/i3lock-color.deb
+    - name: install polybar for status
+      ansible.builtin.apt:
+        name:
+        - polybar
+        update_cache: yes
+  ignore_errors: true
+  when: ansible_os_family == 'Debian'
+  tags: install-desktop-gui
+
+- name: setup i3 config
+  block:
+    - name: create i3 directory
+      ansible.builtin.file:
+        path: "/home/{{ profile_user }}/.config/i3"
+        state: directory
+        mode: '0755'
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+    - name: create i3 directory scripts
+      ansible.builtin.file:
+        path: "/home/{{ profile_user }}/.config/i3/scripts"
+        state: directory
+        mode: '0755'
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+    - name: remove i3 config if exist
+      ansible.builtin.file:
+        path: "/home/{{ profile_user }}/.config/i3/config"
+        state: absent
+    - name: i3 config template 
+      ansible.builtin.template:
+        src: templates/i3_config.j2
+        dest: "/home/{{ profile_user }}/.config/i3/config"
+        backup: yes
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+    - name: i3 lock script 
+      ansible.builtin.template:
+        src: templates/i3_lock.j2
+        dest: "/home/{{ profile_user }}/.config/i3/scripts/lock"
+        backup: yes
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+        mode: 0755
+    - name: copy wallpaper 
+      ansible.builtin.copy:
+        src: wallpaper/gorillaz.3840x2160.jpg
+        dest: "/home/{{ profile_user }}/gorillaz.3840x2160.jpg"
+  ignore_errors: true
+  tags: 
+    - install-desktop-gui
+    - update-desktop-gui-i3-config

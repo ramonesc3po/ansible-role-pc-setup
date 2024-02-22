@@ -60,6 +60,13 @@
   when: setup_hashicorp == true
   tags: hashicorp
 
+- name: setup desktop install-desktop-gui
+  include_tasks: desktop_gui.yml
+  when: setup_desktop_gui == true
+  tags: 
+   - install-desktop-gui
+   - update-desktop-gui-i3-config
+
 - debug:
     msg:
     - "There are no errors? Restart your pc to effect user changes."

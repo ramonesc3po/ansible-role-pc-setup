@@ -17,6 +17,12 @@ Role Variables
 - timezone: ""
 - profile_user: ""
 
+Roadmap
+-------
+- setup polybar
+- custom widgets (music player, notifications)
+- fix powershell-line
+
 Example Playbook
 ----------------
 ```yaml

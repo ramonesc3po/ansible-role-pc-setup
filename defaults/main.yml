@@ -47,3 +47,6 @@ docker_compose_version: '2.23.3'
 # terminator
 setup_terminator: false
 setup_kitty: true
+
+# desktop gui
+setup_destkop_gui: false

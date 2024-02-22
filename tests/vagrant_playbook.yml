@@ -3,9 +3,8 @@
   connection: local
 
   vars:
+    setup_desktop_gui: true
     profile_user: vagrant
-    setup_hashicorp: true
-    setup_golang: true
 
   roles:
     - role: ./
