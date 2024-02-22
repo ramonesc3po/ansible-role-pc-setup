@@ -16,6 +16,12 @@
       ansible.builtin.apt:
         name: i3lock
         state: absent
+    - name: copy libjpeg62 .deb - i3lock-color dep
+      src: pkg/debia/libjpeg62-turbo_2.1.5-2+b2_amd64.deb
+      dest: /tmp/libjpeg62-turbo.deb
+    - name: install libjpeg62 .deb - i3lock-color dep
+      ansible.builtin.apt:
+        deb: /tmp/libjpeg62-turbo.deb
     - name: copy i3 lock-color .deb
       ansible.builtin.copy:
         src: pkg/debian/i3lock-color_2.13.c.5-2_amd64.deb
