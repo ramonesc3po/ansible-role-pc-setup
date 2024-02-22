@@ -2,3 +2,4 @@
 .retry
 *.secretfile
 .secretfile
+.vagrant
