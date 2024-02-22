@@ -22,6 +22,9 @@ Roadmap
 - setup polybar
 - custom widgets (music player, notifications)
 - fix powershell-line
+- setup xrandr (xrandr --output DP-1-1 --auto --right-of DP-1-2 && xrandr --output eDP-1 --off) switch screens multiple monitor by shortcut
+- setup keyboard layout ( exec "setxkbmap -layout eu") switch keyboards layout 
+- add i3 repositories for debian and ubuntu (https://i3wm.org/docs/repositories.html)
 
 Example Playbook
 ----------------
