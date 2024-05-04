@@ -1,36 +1,41 @@
 ---
-- name: terminator theme
-  git:
-    repo: https://github.com/arcticicestudio/nord-terminator.git
-    dest: /tmp/nord
+---
+- name: terminator setup
+  block:
+    - name: terminator theme
+      git:
+        repo: https://github.com/arcticicestudio/nord-terminator.git
+        dest: /tmp/nord
 
-- file:
-    path: '/home/{{ profile_user }}/.config/terminator'
-    state: directory
-    owner: '{{ profile_user }}'
-    group: '{{ profile_user }}'
-    mode: 0755
+    - file:
+        path: '/home/{{ profile_user }}/.config/terminator'
+        state: directory
+        owner: '{{ profile_user }}'
+        group: '{{ profile_user }}'
+        mode: 0755
 
-- copy:
-    src: '/tmp/nord/src/config'
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    owner: "{{ profile_user }}"
-    group: "{{ profile_user }}"
-    mode: 0644
+    - copy:
+        src: '/tmp/nord/src/config'
+        dest: '/home/{{ profile_user }}/.config/terminator/config'
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+        mode: 0644
 
-- replace:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: 'nord'
-    replace: 'default'
-    
-- lineinfile:
-    dest: '/home/{{ profile_user }}/.config/terminator/config'
-    regexp: '^background_color'
-    insertafter: '^background_color'
-    line: "    {{ item.property }} = {{ item.value }}"
-  with_items:
-    - { property: 'background_darkness', value: '0.9' }
-    - { property: 'background_type', value: 'transparent' }
-    - { property: 'scrollback_lines', value: '50000' }
-    - { property: 'font', value: 'Liberation Mono 11' }
-    - { property: 'use_system_font', value: 'False' }
+    - replace:
+        dest: '/home/{{ profile_user }}/.config/terminator/config'
+        regexp: 'nord'
+        replace: 'default'
+        
+    - lineinfile:
+        dest: '/home/{{ profile_user }}/.config/terminator/config'
+        regexp: '^background_color'
+        insertafter: '^background_color'
+        line: "    {{ item.property }} = {{ item.value }}"
+      with_items:
+        - { property: 'background_darkness', value: '0.9' }
+        - { property: 'background_type', value: 'transparent' }
+        - { property: 'scrollback_lines', value: '50000' }
+        - { property: 'font', value: 'Liberation Mono 11' }
+        - { property: 'use_system_font', value: 'False' }
+  tags:
+    - terminator

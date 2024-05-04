@@ -39,6 +39,7 @@
 - name: configure terminator
   include_tasks: terminator.yml
   when: setup_terminator == true
+  tags: terminator
 
 - name: configure shell
   include_tasks: shell.yml
