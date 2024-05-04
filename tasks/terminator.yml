@@ -1,5 +1,4 @@
 ---
----
 - name: terminator setup
   block:
     - name: terminator theme
