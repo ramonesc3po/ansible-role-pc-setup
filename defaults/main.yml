@@ -4,6 +4,7 @@ install_pip_packages: []
 timezone: ""
 profile_user: "root"
 setup_kvm: false
+setup_kubernetes_tools: false
 
 requirements_install_packages:
   - lvm2

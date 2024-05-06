@@ -1,0 +1,16 @@
+---
+- name: helm installing
+  block:
+    - name: verify helm bin
+      stat:
+        path: /usr/local/bin/helm
+      register: helm_bin
+    - name: install helm bin
+      ansible.builtin.unarchive:
+        src: https://get.helm.sh/helm-v3.14.4-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: yes
+        include:
+          - linux-amd64/helm
+      when: not helm_bin.stat.exists
+  tags: helm

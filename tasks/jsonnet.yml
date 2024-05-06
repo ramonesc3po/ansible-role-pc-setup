@@ -1,0 +1,14 @@
+---
+- name: jsonnet bundler installing
+  block:
+    - name: verify jb bin
+      stat:
+        path: /usr/local/bin/jb
+      register: jb_bin
+    - name: download latest tanka bin
+      ansible.builtin.get_url:
+        url: https://github.com/jsonnet-bundler/jsonnet-bundler/releases/latest/download/jb-linux-amd64
+        dest: /usr/local/bin/jb
+        mode: "+x"
+      when: not jb_bin.stat.exists
+  tags: jsonnet_bundler

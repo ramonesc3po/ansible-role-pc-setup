@@ -1,0 +1,14 @@
+---
+- name: tanka installing
+  block:
+    - name: verify tanka bin
+      stat:
+        path: /usr/local/bin/tk
+      register: tanka_bin
+    - name: download latest tanka bin
+      ansible.builtin.get_url:
+        url: https://github.com/grafana/tanka/releases/latest/download/tk-linux-amd64
+        dest: /usr/local/bin/tk
+        mode: "+x"
+      when: not tanka_bin.stat.exists
+  tags: tanka

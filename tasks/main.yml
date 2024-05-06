@@ -68,6 +68,17 @@
    - install-desktop-gui
    - update-desktop-gui-i3-config
 
+- name: setup kubernetes tools
+  include_tasks:
+    - tanka.yml
+    - jsonnet.yml
+    - helm.yml
+  when: setup_kubernetes_tools == true
+  tags: 
+    - helm
+    - jsonnet
+    - tanka
+
 - debug:
     msg:
     - "There are no errors? Restart your pc to effect user changes."
