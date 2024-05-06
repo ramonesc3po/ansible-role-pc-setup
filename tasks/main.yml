@@ -69,10 +69,13 @@
    - update-desktop-gui-i3-config
 
 - name: setup kubernetes tools
-  include_tasks:
-    - tanka.yml
-    - jsonnet.yml
-    - helm.yml
+  block:
+    - ansible.builtin.include_tasks:
+        file: jsonnet.yml
+    - ansible.builtin.include_tasks:
+        file: tanka.yml
+    - ansible.builtin.include_tasks:
+        file: helm.yml
   when: setup_kubernetes_tools == true
   tags: 
     - helm
