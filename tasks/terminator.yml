@@ -3,7 +3,7 @@
   block:
     - name: terminator theme
       git:
-        repo: https://github.com/arcticicestudio/nord-terminator.git
+        repo: https://github.com/nordtheme/terminator.git
         dest: /tmp/nord
 
     - file:
