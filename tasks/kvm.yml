@@ -5,7 +5,6 @@
     ansible.builtin.apt:
       name:    
       - virt-manager
-      - virt-goodies
       - qemu-kvm 
       - libvirt-clients 
       - libvirt-daemon-system 
