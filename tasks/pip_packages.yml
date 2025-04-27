@@ -16,5 +16,8 @@
         state: latest
       loop: "{{ install_pip_packages }}"
       when: install_pip_packages != []
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - install-pip-pkg
