@@ -9,11 +9,17 @@
         name: "{{ profile_user }}"
         groups: docker
         append: yes
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - docker
 
 - name: installing docker compose
   shell: |
     if ! which docker-compose >> /dev/null; then curl -L "https://github.com/docker/compose/releases/download/v{{docker_compose_version}}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -f -s /usr/local/bin/docker-compose /usr/bin/docker-compose; fi
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - docker-compose

@@ -5,3 +5,6 @@
     line: "{{ profile_user }} ALL=(ALL) NOPASSWD:ALL"
     insertafter: EOF
     validate: '/usr/sbin/visudo -cf %s'
+  become: true
+  become_method: sudo
+  become_user: root

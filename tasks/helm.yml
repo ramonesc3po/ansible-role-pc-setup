@@ -13,4 +13,7 @@
         include:
           - linux-amd64/helm
       when: not helm_bin.stat.exists
+  become: true
+  become_method: sudo
+  become_user: root
   tags: helm

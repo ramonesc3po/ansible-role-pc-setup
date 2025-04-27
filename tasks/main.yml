@@ -43,6 +43,8 @@
 
 - name: configure shell
   include_tasks: shell.yml
+  tags:
+    - powerline-shell
 
 - name: setup docker and docker compose
   include_tasks: docker.yml

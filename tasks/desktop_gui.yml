@@ -36,6 +36,9 @@
         - polybar
         update_cache: yes
   ignore_errors: true
+  become: true
+  become_method: sudo
+  become_user: root
   when: ansible_os_family == 'Debian'
   tags: install-desktop-gui
 
@@ -79,6 +82,9 @@
         src: wallpaper/gorillaz.3840x2160.jpg
         dest: "/home/{{ profile_user }}/gorillaz.3840x2160.jpg"
   ignore_errors: true
+  become: true
+  become_method: sudo
+  become_user: root
   tags: 
     - install-desktop-gui
     - update-desktop-gui-i3-config

@@ -54,7 +54,11 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
+{% if setup_kitty %}
+bindsym $mod+Return exec /opt/kitty/bin/kitty
+{% else %}
 bindsym $mod+Return exec i3-sensible-terminal
+{% endif %}
 
 # kill focused window
 bindsym $mod+Shift+q kill

@@ -20,5 +20,8 @@
         state: present
         update_cache: yes
   when: ansible_os_family == 'Debian'
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - install-chrome

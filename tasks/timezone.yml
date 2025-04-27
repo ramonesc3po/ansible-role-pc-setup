@@ -3,3 +3,6 @@
   ansible.builtin.timezone:
     name: "{{ timezone }}"
   when: timezone != ""
+  become: true
+  become_method: sudo
+  become_user: root

@@ -25,4 +25,7 @@
         autoclean: yes
       when: install_packages != ""
   ignore_errors: true
+  become: true
+  become_method: sudo
+  become_user: root
   tags: install-apt-pkg

@@ -24,5 +24,8 @@
         version: "{{ npm_version_expo_cli }}"
         global: yes
       when: install_nodejs is succeeded and setup_expo_cli == true 
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - nodejs

@@ -25,5 +25,8 @@
       append: yes
     when: _setup_kvm is succeeded
   when: ansible_os_family == 'Debian'
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - kvm

@@ -6,6 +6,9 @@
           - curl
           - xz-utils
         update_cache: yes
+      become: true
+      become_method: sudo
+      become_user: root
     - ansible.builtin.file:
         path: "{{ item }}"
         owner: "{{ profile_user }}"
@@ -13,18 +16,62 @@
         mode: 0755
         recurse: yes
         state: directory
-      loop: ["$HOME/.local/bin","$HOME/.local/share/applications"]
-    - ansible.builtin.shell: |
-        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-    - ansible.builtin.shell: |
-        ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
-    - ansible.builtin.shell: |
-        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-    - ansible.builtin.shell: |
-        cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-    - ansible.builtin.shell: |
-        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-    - ansible.builtin.shell: |
-        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+      loop: ["/opt/kitty"]
+      become: true
+      become_method: sudo
+      become_user: root
+    - name: installing kitty
+      ansible.builtin.unarchive:
+        src: https://github.com/kovidgoyal/kitty/releases/download/v0.41.0/kitty-0.41.0-x86_64.txz
+        remote_src: yes
+        dest: /opt/kitty
+      register: kitty_install
+      become: true
+      become_method: sudo
+      become_user: root
+    - name: adding kitty bin folder to user path
+      ansible.builtin.blockinfile:
+        state: "{{ state }}"
+        dest: /etc/bash.bashrc
+        insertafter: EOF
+        marker: "# {mark} ANSIBLE KITTY BASH MANAGED"
+        content: |
+          if [ -d "/opt/kitty/bin" ] ; then
+              PATH="/opt/kitty/bin:$PATH"
+          fi
+      register: kitty_setup_path
+      become: true
+      become_method: sudo
+      become_user: root
+      when: kitty_install is succeeded
+    - name: adding theme kitty
+      ansible.builtin.blockinfile:
+        state: "{{ state }}"
+        dest: $HOME/.config/kitty/current-theme.conf
+        create: true
+        insertafter: EOF
+        marker: "# {mark} ANSIBLE KITTY THEME MANAGED"
+        content: |
+          background            #d4ccb9
+          foreground            #45363b
+          cursor                #45363b
+          selection_background  #958b83
+          color0                #20111a
+          color8                #5e5252
+          color1                #bd100d
+          color9                #bd100d
+          color2                #858062
+          color10               #858062
+          color3                #e9a448
+          color11               #e9a448
+          color4                #416978
+          color12               #416978
+          color5                #96522b
+          color13               #96522b
+          color6                #98999c
+          color14               #98999c
+          color7                #958b83
+          color15               #d4ccb9
+          selection_foreground #d4ccb9      
   tags:
     - kitty

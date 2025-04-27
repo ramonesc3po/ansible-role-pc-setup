@@ -11,4 +11,7 @@
         dest: /usr/local/bin/jb
         mode: "+x"
       when: not jb_bin.stat.exists
+  become: true
+  become_method: sudo
+  become_user: root
   tags: jsonnet_bundler

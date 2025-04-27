@@ -1,8 +1,12 @@
 ---
-- name: golang download
-  ansible.builtin.shell: |
-    curl -fsSL https://go.dev/dl/go{{ golang_version }}.linux-amd64.tar.gz -O
-
-- name: golang install
-  ansible.builtin.shell: |
-    tar -C /usr/local -xzf go{{ golang_version }}.linux-amd64.tar.gz
+- name: setup golang
+  block:
+  - name: golang download
+    ansible.builtin.unarchive:
+      src: https://go.dev/dl/go{{ golang_version }}.linux-amd64.tar.gz
+      remote_src: yes
+      dest: /usr/local
+  become: true
+  become_method: sudo
+  become_user: root
+  tags: golang

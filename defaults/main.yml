@@ -1,4 +1,6 @@
 ---
+state: present
+
 install_packages: ""
 install_pip_packages: []
 timezone: ""
@@ -15,7 +17,6 @@ requirements_install_packages:
   - git
 requirements_install_pip_packages:
   - pycowsay
-  - powerline-shell
 
 # hashicorp
 setup_hashicorp: false
@@ -47,7 +48,7 @@ docker_compose_version: '2.23.3'
 # shell
 # terminator
 setup_terminator: false
-setup_kitty: true
+setup_kitty: false
 
 # desktop gui
 setup_destkop_gui: false

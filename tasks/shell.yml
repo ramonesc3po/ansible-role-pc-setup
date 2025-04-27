@@ -1,12 +1,72 @@
 ---
 - name: setup powerline-shell
-  ansible.builtin.blockinfile:
-    dest: /etc/bash.bashrc
-    insertafter: EOF
-    content: |
-      function _update_ps1() {
-        PS1=$(powerline-shell $?)
-      }
-      if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-         PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-      fi
+  block:
+    - name: install pipx
+      ansible.builtin.apt:
+        name: pipx
+        state: present
+      become: true
+      become_method: sudo
+      become_user: root
+    - name: install require pip powerline-shell
+      community.general.pipx:
+        name: "{{ item }}"
+        state: "{{ state }}"
+      loop: 
+        - powerline-shell
+      tags:
+        - powerline-shell
+      become: true
+      become_method: sudo
+      become_user: root
+    - name: creating folders
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+        mode: 0755
+        recurse: yes
+        state: directory
+      loop: ["$HOME/.config/powerline-shell"]
+      register: powerline_folders
+    - name: user powerline theme
+      ansible.builtin.copy:
+        dest: "$HOME/.config/powerline-shell/config.json"
+        backup: yes
+        content: |
+          {
+            "segments": [
+              "virtual_env",
+              "aws_profile",
+              "ssh",
+              "cwd",
+              "git",
+              "git_stash",
+              "jobs",
+              "set_term_title",
+              "svn",
+              "newline",
+              "root"
+            ],
+            "mode": "flat",
+            "cwd": {
+              "mode": "plain"
+            },
+            "theme": "gruvbox"
+          }
+      when: powerline_folders is succeeded
+    - ansible.builtin.blockinfile:
+        state: "{{ state }}"
+        dest: /etc/bash.bashrc
+        insertafter: EOF
+        content: |
+          function _update_ps1() {
+            PS1=$(powerline-shell $?)
+          }
+          if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+            PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+          fi
+      become: true
+      become_method: sudo
+      become_user: root
+  tags: powerline-shell

@@ -31,5 +31,8 @@
         dest: /usr/local/bin
         remote_src: yes
       when: vagrant_bin.stat.exists != true
+  become: true
+  become_method: sudo
+  become_user: root
   tags:
     - hashicorp
