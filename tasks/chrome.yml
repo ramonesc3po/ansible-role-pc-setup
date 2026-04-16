@@ -4,16 +4,16 @@
     - ansible.builtin.apt:
         name: gpg
         update_cache: yes
-    - name: add apt key
-      ansible.builtin.apt_key:
-        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-        state: present
+    - name: add signing key without apt-key
+      ansible.builtin.get_url:
+        url: https://dl.google.com/linux/linux_signing_key.pub
+        dest: /etc/apt/trusted.gpg.d/google.asc
     - name: google Chrome repository
       ansible.builtin.lineinfile:
         dest: /etc/apt/sources.list.d/google-chrome.list
         line: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
         create: yes
-    - name: install google-chrome browser 
+    - name: install google-chrome browser
       ansible.builtin.apt:
         name:
           - google-chrome-stable
@@ -25,3 +25,4 @@
   become_user: root
   tags:
     - install-chrome
+
