@@ -84,6 +84,22 @@
     - jsonnet
     - tanka
 
+- name: setup kubernetes lens Debian
+  block:
+    - ansible.builtin.include_tasks:
+        file: lens.yml
+  when: setup_kubernetes_tools == true and ansible_os_family == 'Debian'
+  tags: 
+    - lens
+
+- name: remove kubernetes lens Debian
+  block:
+    - ansible.builtin.include_tasks:
+        file: lens.yml
+  when: setup_kubernetes_tools == false and ansible_os_family == 'Debian'
+  tags: 
+    - lens
+
 - debug:
     msg:
     - "There are no errors? Restart your pc to effect user changes."

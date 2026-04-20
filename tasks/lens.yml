@@ -1,0 +1,59 @@
+---
+- name: installing lens kubernetes for Debian distro
+  block:
+    - ansible.builtin.apt:
+        name: gpg
+        update_cache: yes
+    - name: add signing key without apt-key
+      ansible.builtin.get_url:
+        url: https://downloads.k8slens.dev/keys/gpg
+        dest: /etc/apt/trusted.gpg.d/lens-archive-keyring.asc
+    - name: k8s lens repository
+      ansible.builtin.lineinfile:
+        dest: /etc/apt/sources.list.d/lens.list
+        line: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/lens-archive-keyring.asc] https://downloads.k8slens.dev/apt/debian stable main"
+        create: yes
+    - name: install deps
+      ansible.builtin.apt:
+        name:
+          -  node-corepack
+        state: present
+        update_cache: yes
+    - name: install k8s lens
+      ansible.builtin.apt:
+        name:
+          - lens
+        state: fixed
+        force_apt_get: true
+        update_cache: yes
+  when: ansible_os_family == 'Debian' and setup_kubernetes_tools == true
+  become: true
+  become_method: sudo
+  become_user: root
+  tags:
+    - lens
+
+- name: removing lens kubernetes for Debian distro
+  block:
+    - name: remove k8s lens
+      ansible.builtin.apt:
+        name:
+          - lens
+        state: absent
+    - name: remove gpg key
+      ansible.builtin.file:
+        state: absent
+        path: /etc/apt/trusted.gpg.d/lens-archive-keyring.asc
+    - name: remove gpg key
+      ansible.builtin.file:
+        state: absent
+        path: /etc/apt/sources.list.d/lens.list
+    - name: update cache
+      ansible.builtin.apt:
+        update_cache: yes
+  when: ansible_os_family == 'Debian' and setup_kubernetes_tools == false
+  become: true
+  become_method: sudo
+  become_user: root
+  tags: 
+    - lens
