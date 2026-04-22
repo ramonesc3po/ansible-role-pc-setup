@@ -100,6 +100,22 @@
   tags: 
     - lens
 
+- name: setup enc sops tool Debian
+  block:
+    - ansible.builtin.include_tasks:
+        file: sops.yml
+  when: setup_enc_tools == true and ansible_os_family == 'Debian'
+  tags: 
+    - sops
+
+- name: remove enc sops tool Debian
+  block:
+    - ansible.builtin.include_tasks:
+        file: sops.yml
+  when: setup_enc_tools == false and ansible_os_family == 'Debian'
+  tags: 
+    - sops
+
 - debug:
     msg:
     - "There are no errors? Restart your pc to effect user changes."

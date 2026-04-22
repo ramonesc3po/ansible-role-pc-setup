@@ -52,3 +52,6 @@ setup_kitty: false
 
 # desktop gui
 setup_destkop_gui: false
+
+# enc tools
+setup_enc_tools: false

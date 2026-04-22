@@ -1,0 +1,27 @@
+---
+- name: installing sops for Debian distro
+  block:
+    - name: installing sops from github .deb 
+      ansible.builtin.apt:
+        deb: https://github.com/getsops/sops/releases/download/v3.12.2/sops_3.12.2_amd64.deb
+        state: present
+  when: ansible_os_family == 'Debian' and setup_enc_tools == true
+  become: true
+  become_method: sudo
+  become_user: root
+  tags:
+    - sops
+
+- name: removing sops for Debian distro
+  block:
+    - name: remove sops
+      ansible.builtin.apt:
+        name:
+          - sops
+        state: absent
+  when: ansible_os_family == 'Debian' and setup_enc_tools == false
+  become: true
+  become_method: sudo
+  become_user: root
+  tags: 
+    - sops
