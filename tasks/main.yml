@@ -116,6 +116,14 @@
   tags: 
     - sops
 
+- name: setup user profile Debian
+  block:
+    - ansible.builtin.include_tasks:
+        file: user_profile.yml
+  when: ansible_os_family == 'Debian'
+  tags: 
+    - profile
+
 - debug:
     msg:
     - "There are no errors? Restart your pc to effect user changes."

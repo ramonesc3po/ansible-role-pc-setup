@@ -1,0 +1,12 @@
+---
+- name: user profile setup
+  block:
+    - name: profile template
+      ansible.builtin.template:
+        src: templates/user_profile.j2
+        dest: "/home/{{ profile_user }}/.profile"
+        backup: yes
+        owner: "{{ profile_user }}"
+        group: "{{ profile_user }}"
+  tags:
+    - profile
